@@ -8,6 +8,8 @@ use Generator;
 use Http\Discovery\Psr17FactoryDiscovery;
 use Psr\Http\Client\ClientInterface as HttpClient;
 use function fopen;
+use function rewind;
+use function Safe\stream_get_contents;
 
 /**
  * @template T of HttpClient
@@ -20,6 +22,8 @@ abstract class AbstractClientTest extends TestCase
      * @psalm-return T
      */
     abstract public function getHttpClient(): HttpClient;
+
+    abstract public function assertDumpedAd(int $input, string $output): void;
 
     final public function setUp(): void
     {
@@ -41,6 +45,21 @@ abstract class AbstractClientTest extends TestCase
 
         $this->assertSame($expected_is_even, $actual->isEven($buffer));
         $this->assertSame(!$expected_is_even, $actual->isOdd($buffer));
+
+        rewind($buffer);
+        $this->assertDumpedAd($input, stream_get_contents($buffer));
+    }
+
+    public function test_buildUri(): void
+    {
+        $actual = $this->subject->buildUri(1234);
+        $this->assertSame('https://api.isevenapi.xyz/api/iseven/1234/', $actual);
+    }
+
+    public function test_createRequest(): void
+    {
+        $actual = $this->subject->createRequest(1234);
+        $this->assertSame('https://api.isevenapi.xyz/api/iseven/1234/', (string)$actual->getUri());
     }
 
     /**
@@ -48,16 +67,28 @@ abstract class AbstractClientTest extends TestCase
      */
     public function numbersProvider(): Generator
     {
-        yield 0 => [0, true];
-        yield 1 => [1, false];
-        yield 2 => [2, true];
-        yield 3 => [3, false];
-        yield 4 => [4, true];
-        yield 5 => [5, false];
-        yield 6 => [6, true];
-        yield 7 => [7, false];
-        yield 8 => [8, true];
-        yield 9 => [9, false];
-        yield 10 => [10, true];
+        foreach ($this->getKnownNumbers() as $number => $is_even) {
+            yield $number => [$number, $is_even];
+        }
+    }
+
+    /**
+     * @return array<int,bool>
+     */
+    public function getKnownNumbers(): array
+    {
+        return [
+            0 => true,
+            1 => false,
+            2 => true,
+            3 => false,
+            4 => true,
+            5 => false,
+            6 => true,
+            7 => false,
+            8 => true,
+            9 => false,
+            10 => true,
+        ];
     }
 }

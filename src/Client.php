@@ -57,9 +57,10 @@ class Client
     /**
      * Fallback implementation in case a connection is lost.
      */
-    public function localIsEven(int $n): bool
+    private function localIsEven(int $n): bool
     {
         $bit = 0b0;
+        /** @infection-ignore-all */
         foreach (range(1, $n) as $_) {
             $bit ^= 0b1;
         }
