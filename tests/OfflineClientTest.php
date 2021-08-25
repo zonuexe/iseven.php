@@ -9,6 +9,7 @@ use zonuexe\isEvenApi\HttpClient\OfflineHttpClient;
 
 /**
  * @extends AbstractClientTest<OfflineHttpClient>
+ * @psalm-suppress PropertyNotSetInConstructor
  */
 final class OfflineClientTest extends AbstractClientTest
 {

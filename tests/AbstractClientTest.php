@@ -10,12 +10,15 @@ use Psr\Http\Client\ClientInterface as HttpClient;
 use function fopen;
 
 /**
- * @template T of Client
+ * @template T of HttpClient
  */
 abstract class AbstractClientTest extends TestCase
 {
     protected Client $subject;
 
+    /**
+     * @psalm-return T
+     */
     abstract public function getHttpClient(): HttpClient;
 
     final public function setUp(): void
@@ -34,12 +37,14 @@ abstract class AbstractClientTest extends TestCase
         $actual = $this->subject->request($input);
         $buffer = fopen('php://memory', 'rw');
 
+        assert($buffer !== false);
+
         $this->assertSame($expected_is_even, $actual->isEven($buffer));
         $this->assertSame(!$expected_is_even, $actual->isOdd($buffer));
     }
 
     /**
-     * @return iterable<array{0:int,1:bool}>
+     * @return Generator<int,array{0:int,1:bool}>
      */
     public function numbersProvider(): Generator
     {
