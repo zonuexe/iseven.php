@@ -6,6 +6,9 @@ namespace zonuexe\isEvenApi;
 
 use function fwrite;
 
+/**
+ * @immutable
+ */
 class Entity
 {
     private int $n;
