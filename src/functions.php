@@ -6,7 +6,6 @@ namespace zonuexe\isEvenApi;
 
 use Http\Discovery\HttpClientDiscovery;
 use Http\Discovery\Psr17FactoryDiscovery;
-
 use zonuexe\isEvenApi\Client;
 
 /**
