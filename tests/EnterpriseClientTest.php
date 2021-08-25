@@ -20,6 +20,7 @@ final class EnterpriseClientTest extends AbstractClientTest
         return new class($this->getKnownNumbers()) extends MappedResponseHttpClient {
             public function buildJsonData(string $key): array
             {
+                /** @var bool $is_even */
                 $is_even = $this->map[$key];
 
                 return [
