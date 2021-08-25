@@ -13,6 +13,7 @@ use zonuexe\isEvenApi\Client;
  */
 function get_client(): Client
 {
+    /** @var null|Client $client */
     static $client;
 
     if ($client === null) {
