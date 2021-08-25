@@ -43,6 +43,7 @@ abstract class AbstractClientTest extends TestCase
 
         assert($buffer !== false);
 
+        $this->assertSame($input, $actual->getNumber());
         $this->assertSame($expected_is_even, $actual->isEven($buffer));
         $this->assertSame(!$expected_is_even, $actual->isOdd($buffer));
 

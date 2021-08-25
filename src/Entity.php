@@ -22,6 +22,11 @@ class Entity
         $this->ad = $ad;
     }
 
+    public function getNumber(): int
+    {
+        return $this->n;
+    }
+
     /**
      * @param resource $stdout
      */
