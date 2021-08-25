@@ -15,11 +15,17 @@
             "zonuexe\\isEvenApi\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "zonuexe\\isEvenApi\\": "tests/"
+        }
+    },
     "config": {
         "sort-packages": true
     },
     "require-dev": {
         "kriswallsmith/buzz": "^1.2",
-        "nyholm/psr7": "^1.4"
+        "nyholm/psr7": "^1.4",
+        "phpunit/phpunit": "^9.5"
     }
 }
