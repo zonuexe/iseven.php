@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace zonuexe\isEvenApi;
 
 use Http\Discovery\HttpClientDiscovery;
-use Http\Discovery\MessageFactoryDiscovery;
+use Http\Discovery\Psr17FactoryDiscovery;
+
 use zonuexe\isEvenApi\Client;
 
 /**
- * キャッシュされたAPIクライアントを返す
+ * Return cached isEvenApi Client (singleton)
  */
 function get_client(): Client
 {
@@ -18,19 +19,29 @@ function get_client(): Client
     if ($client === null) {
         $client = new Client(
             HttpClientDiscovery::find(),
-            MessageFactoryDiscovery::find()
+            Psr17FactoryDiscovery::findRequestFactory()
         );
     }
 
     return $client;
 }
 
-function is_even(int $n): bool
+/**
+ * Is $n even?
+ *
+ * @param resource $stdout
+ */
+function is_even(int $n, $stdout = STDERR): bool
 {
-    return get_client()->request($n)->isEven();
+    return get_client()->request($n)->isEven($stdout);
 }
 
-function is_odd(int $n): bool
+/**
+ * Is $n odd?
+ *
+ * @param resource $stdout
+ */
+function is_odd(int $n, $stdout = STDERR): bool
 {
     return !get_client()->is_even($n);
 }

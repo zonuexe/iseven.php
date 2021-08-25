@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace zonuexe\isEvenApi;
 
+use function fwrite;
+
 class Entity
 {
-    /** @var int $n */
-    private $n;
-    /** @var bool $is_even */
-    private $is_even;
-    /** @var ?string $ad */
-    private $ad;
+    private int $n;
+    private bool $is_even;
+    private ?string $ad;
 
     public function __construct(int $n, bool $is_even, ?string $ad)
     {
@@ -20,13 +19,23 @@ class Entity
         $this->ad = $ad;
     }
 
-    public function isEven(): bool
+    /**
+     * @param resource $stdout
+     */
+    public function isEven($stdout): bool
     {
+        if ($this->ad !== null) {
+            fwrite($stdout, "[Ad] {$this->ad}\n");
+        }
+
         return $this->is_even;
     }
 
-    public function isOdd(): bool
+    /**
+     * @param resource $stdout
+     */
+    public function isOdd($stdout): bool
     {
-        return !$this->isEven();
+        return !$this->isEven($stdout);
     }
 }

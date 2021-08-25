@@ -15,7 +15,9 @@ $client = new isEvenApi\Client($http_client, $http_factory);
 // var_dump($client->request(1)->isEven()); // => false
 // var_dump($client->request(2)->isEven()); // => true
 
+$null = fopen('php://temp', 'rw');
 var_dump(zonuexe\isEvenApi\is_even(1));
+var_dump(zonuexe\isEvenApi\is_even(2, $null));
 
 function is_even(int $n): bool
 {
