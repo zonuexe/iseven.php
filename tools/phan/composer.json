@@ -1,0 +1,12 @@
+{
+    "require": {
+        "phan/phan": "^5.1"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "classmap-authoritative": true,
+        "discard-changes": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    }
+}
