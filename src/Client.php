@@ -13,10 +13,8 @@ use function range;
 
 class Client
 {
-    /** @var HttpClient */
-    private $http_client;
-    /** @var RequestFactory */
-    private $request_facory;
+    private HttpClient $http_client;
+    private RequestFactory $request_facory;
 
     private const DEFAULT_AD
         = 'PHP is a popular general-purpose scripting language that is especially suited to web development.  '
