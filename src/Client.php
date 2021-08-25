@@ -30,10 +30,10 @@ class Client
     {
         try {
             $response = $this->http_client->sendRequest($this->createRequest($n));
-            /** @var array{iseven:bool,ad?:string} $data */
             $data = json_decode((string)$response->getBody(), true);
+            $this->validateResponse($data);
             /** @phan-suppress-next-line PhanUnusedVariableCaughtException */
-        } catch (NetworkExceptionInterface $e) {
+        } catch (NetworkExceptionInterface | ResponseValidationException $e) {
             $data = ['iseven' => $this->localIsEven($n), 'ad' => self::DEFAULT_AD];
         }
 
@@ -55,7 +55,8 @@ class Client
     }
 
     /**
-     * Fallback implementation in case a connection is lost.
+     * Fallback implementation in case the connection is lost, or the
+     * response is malformed for some reason such as the end of service.
      */
     private function localIsEven(int $n): bool
     {
@@ -66,5 +67,21 @@ class Client
         }
 
         return $bit === 0b0;
+    }
+
+    /**
+     * @param mixed $data
+     * @psalm-assert array{iseven: bool, ad?: string} $data
+     * @throws ResponseValidationException
+     */
+    private function validateResponse($data): void
+    {
+        if (
+            !is_array($data)
+            || (!isset($data['iseven']) || !is_bool($data['iseven']))
+            || (isset($data['ad']) && !is_string($data['ad']))
+        ) {
+            throw new ResponseValidationException();
+        }
     }
 }
