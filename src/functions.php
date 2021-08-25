@@ -43,5 +43,5 @@ function is_even(int $n, $stdout = STDERR): bool
  */
 function is_odd(int $n, $stdout = STDERR): bool
 {
-    return !get_client()->is_even($n);
+    return !is_even($n, $stdout);
 }
