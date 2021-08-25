@@ -10,7 +10,7 @@ use zonuexe\isEvenApi\HttpClient\OfflineHttpClient;
 /**
  * @extends AbstractClientTest<OfflineHttpClient>
  */
-final class OfflineTest extends AbstractClientTest
+final class OfflineClientTest extends AbstractClientTest
 {
     public function getHttpClient(): HttpClient
     {
