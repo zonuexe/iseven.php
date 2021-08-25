@@ -66,7 +66,7 @@ $config = (new PhpCsFixer\Config())
         ],
         'phpdoc_scalar' => true,
         'phpdoc_separation' => false,
-        'phpdoc_to_comment' => true,
+        'phpdoc_to_comment' => false,
         'phpdoc_trim' => true,
         'phpdoc_trim_consecutive_blank_line_separation' => true,
         'short_scalar_cast' => true,

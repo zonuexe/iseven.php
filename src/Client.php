@@ -30,11 +30,17 @@ class Client
     {
         try {
             $response = $this->http_client->sendRequest($this->createRequest($n));
+            /** @var array{iseven:bool,ad?:string} $data */
             $data = json_decode((string)$response->getBody(), true);
+            /** @phan-suppress-next-line PhanUnusedVariableCaughtException */
         } catch (NetworkExceptionInterface $e) {
             $data = ['iseven' => $this->localIsEven($n), 'ad' => self::DEFAULT_AD];
         }
 
+        /** @psalm-suppress RedundantConditionGivenDocblockType */
+        assert($data !== null);
+
+        /** @phan-suppress-next-line PhanPartialTypeMismatchArgument */
         return new Entity($n, $data['iseven'], $data['ad'] ?? null);
     }
 

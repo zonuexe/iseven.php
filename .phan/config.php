@@ -353,6 +353,7 @@ return [
         'vendor/kriswallsmith/buzz/lib',
         'vendor/nyholm/psr7/src',
         'vendor/php-http/discovery/src',
+        'vendor/php-http/httplug/src',
         'vendor/phpunit/phpunit/src',
         'vendor/psr/http-client/src',
         'vendor/psr/http-factory/src',
