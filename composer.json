@@ -1,0 +1,11 @@
+{
+    "name": "zonuexe/isevenapi",
+    "description": "",
+    "license": "AGPL-3.0",
+    "require": {
+        "php": "^7.4"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
