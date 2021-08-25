@@ -26,7 +26,7 @@ class Client
         $this->request_facory = $request_facory;
     }
 
-    public function request(int $n)
+    public function request(int $n): Entity
     {
         try {
             $response = $this->http_client->sendRequest($this->createRequest($n));
@@ -38,7 +38,7 @@ class Client
         return new Entity($n, $data['iseven'], $data['ad'] ?? null);
     }
 
-    public function createRequest(int $n)
+    public function createRequest(int $n): RequestInterface
     {
         return $this->request_facory->createRequest('GET', $this->buildUri($n));
     }
