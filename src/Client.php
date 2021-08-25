@@ -8,6 +8,9 @@ use Psr\Http\Client\ClientInterface as HttpClient;
 use Psr\Http\Client\NetworkExceptionInterface;
 use Psr\Http\Message\RequestFactoryInterface as RequestFactory;
 use Psr\Http\Message\RequestInterface;
+use function is_array;
+use function is_bool;
+use function is_string;
 use function json_decode;
 use function range;
 
